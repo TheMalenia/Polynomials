@@ -14,12 +14,14 @@ class Polynomial(object):
             val = args[0]
             if isinstance(val, Polynomial):                # copy constructor
                 self.coeffs = val.coeffs[:]
-            elif isinstance(val, collections.Iterable):    # from sequence
-                self.coeffs = list(val)
+            elif isinstance(val, list):                    # from sequence
+                val.reverse()
+                self.coeffs = val
             else:                                          # from single scalar
-                self.coeffs = [val+0]
+                self.coeffs = [val]
         else:                                              # multiple scalars
             self.coeffs = [i+0 for i in args]
+            self.coeffs.reverse()
         self.trim()
     
     def trim(self):
