@@ -204,6 +204,17 @@ class Polynomial(object):
             res[-1] = 0
         return self.__class__(res)
 
+    def root(self, val=3):
+        dif = self.diff()
+        f = self
+        num = 0
+        h = f.__call__(val) / dif.__call__(val)
+        while abs(h) >= 0.0001 and num<=1e5:
+            h = f.__call__(val) / dif.__call__(val)            
+            val = val - h
+            num+=1
+        return val
+ 
     def trim(self):
         "Remove trailing 0-coefficients"
         _co = self.coeffs
