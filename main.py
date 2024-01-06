@@ -184,6 +184,26 @@ class Polynomial(object):
             po-=1
         return res
 
+    def diff(self, val=1):
+        poly = self.coeffs
+        poly.reverse()
+        for i in range(val):
+            deriv_poly = [poly[i] * i for i in range(1, len(poly))]
+            poly = deriv_poly
+        poly.reverse()
+        return self.__class__(poly)
+
+    def inl(self, val=1):
+        res = self.coeffs
+        for j in range(val):
+            res = [0] + res
+            inl = len(res)-1
+            for i in range(1 , len(res)):
+                res[i-1] = res[i]/(inl)
+                inl-=1
+            res[-1] = 0
+        return self.__class__(res)
+
     def trim(self):
         "Remove trailing 0-coefficients"
         _co = self.coeffs
@@ -191,3 +211,4 @@ class Polynomial(object):
             offs = 0
             while len(_co)!=0 and _co[offs]==0:
                 del _co[0]
+
