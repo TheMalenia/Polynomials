@@ -1,4 +1,3 @@
-import collections
 import itertools
 
 class Polynomial(object):
@@ -20,10 +19,10 @@ class Polynomial(object):
                 self.coeffs = [val]
         else:                                              # multiple scalars
             self.coeffs = [i+0 for i in args]
-        self.trim()
+        self.trim() # remove zeros in first
 
     def __add__(self, val):
-        "Return self+val"
+        # Return self+val
         if isinstance(val, list):                          # add sequence
             x = self.coeffs
             x.reverse()
@@ -46,14 +45,20 @@ class Polynomial(object):
         return self.__class__(res)
 
     def __eq__(self, val):
-        "Test self==val"
+        # Test self==val
         if isinstance(val, Polynomial):
-            return self.coeffs == val.coeffs
+            return self.coeffs == val.coeffs        # check ceoffs is equal
         else:
-            return len(self.coeffs)==1 and self.coeffs[0]==val
+            return len(self.coeffs)==1 and self.coeffs[0]==val      # check poly is equal to number
 
     def __mul__(self, val):
-        "Return self*val"
+        # Return self*val
+        """
+        algorithm:
+        every res[i] = 0
+        for every i and j:
+            res[i+j] = res[i][j] + poly1[i] * poly2[j]
+        """
         _s = self.coeffs
         _v = []
         if isinstance(val, Polynomial):
@@ -82,15 +87,17 @@ class Polynomial(object):
             shiftlen = len(Poly1) - len(Poly2)
             Poly2 = [0] * shiftlen + Poly2
         else:
-            Poly1.reverse()
+            Poly1.reverse() # we cant divide
             return self.__class__([0]), self.__class__(Poly1)
         
         quot = []
         divisor = float(Poly2[-1])
         for i in range(shiftlen + 1):
+            #Get the next coefficient of the quotient.
             mult = Poly1[-1] / divisor
             quot = [mult] + quot
 
+            #Subtract mult * den from num, but don't bother if mult == 0
             if mult != 0:
                 d = [mult * u for u in Poly2]
                 Poly1 = [u - v for u, v in zip(Poly1, d)]
@@ -103,6 +110,7 @@ class Polynomial(object):
         return self.__class__(quot) , self.__class__(Poly1)
 
     def __rtruediv__(self, val):
+        # same as __truediv__
         Poly2 = self.coeffs
         Poly1 = ( self.__class__(val) ).coeffs
         Poly1.reverse()
@@ -134,26 +142,26 @@ class Polynomial(object):
         return self.__class__(quot) , self.__class__(Poly1)
 
     def __neg__(self):
-        "Return -self"
+        # Return -self
         return self.__class__([-co for co in self.coeffs])
 
     def _radd__(self, val):
-        "Return val+self"
+        # Return val+self
         return self+val
 
     def __repr__(self):
         return "{0}({1})".format(self.__class__.__name__, self.coeffs)
 
     def __rmul__(self, val):
-        "Return val*self"
+        # Return val*self
         return self*val
 
     def __rsub__(self, val):
-        "Return val-self"
+        # Return val-self
         return -self + val
 
     def __str__(self):
-        "Return string formatted as aX^3 + bX^2 + c^X + d"
+        # Return string formatted as aX^3 + bX^2 + c^X + d
         res = []
         it = len(self.coeffs)-1
         for co in self.coeffs:
@@ -173,10 +181,11 @@ class Polynomial(object):
             return "0"
 
     def __sub__(self, val):
-        "Return self-val"
+        # Return self-val
         return self.__add__([-co for co in val])
 
     def __call__(self, val):
+        # return number if X==val
         po = len(self.coeffs)-1
         res = 0
         for i in self.coeffs:
@@ -185,6 +194,7 @@ class Polynomial(object):
         return res
 
     def diff(self, val=1):
+        # Derivative calculator
         poly = self.coeffs
         poly.reverse()
         for i in range(val):
@@ -194,6 +204,7 @@ class Polynomial(object):
         return self.__class__(poly)
 
     def inl(self, val=1):
+        # Integral calculator
         res = self.coeffs
         for j in range(val):
             res = [0] + res
@@ -205,6 +216,8 @@ class Polynomial(object):
         return self.__class__(res)
 
     def root(self, val=3):
+        # Using Newton Raphson Method to find one root
+        # for more info : https://www.geeksforgeeks.org/program-for-newton-raphson-method/
         dif = self.diff()
         f = self
         num = 0
@@ -216,10 +229,9 @@ class Polynomial(object):
         return val
  
     def trim(self):
-        "Remove trailing 0-coefficients"
+        # Remove trailing 0-coefficients
         _co = self.coeffs
         if _co:
             offs = 0
             while len(_co)!=0 and _co[offs]==0:
                 del _co[0]
-
