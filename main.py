@@ -235,3 +235,42 @@ class Polynomial(object):
             offs = 0
             while len(_co)!=0 and _co[offs]==0:
                 del _co[0]
+    
+    def fit1(Setx, Sety):
+        if(len(Setx)!=len(Sety)):
+            return 0
+        
+        mx = 1e10
+        res = []
+        for i in range(1 , 100):
+            for j in range(0 , 100):
+                f = Polynomial(i, j)
+                distance = 0
+                for k in range(len(Setx)):
+                    fx = f(Setx[k])
+                    distance += abs(fx-Sety[k])
+                if(distance<mx):
+                    mx = distance
+                    res = [i, j]
+        return Polynomial(res)
+    
+    def fit2(Setx, Sety):
+        if(len(Setx)!=len(Sety)):
+            return 0
+        
+        mx = 1e10
+        res = []
+        for i in range(1 , 100):
+            for j in range(0 , 100):
+                for h in range(0 , 100):
+                    f = Polynomial(i, j, h)
+                    distance = 0
+                    for k in range(len(Setx)):
+                        fx = f(Setx[k])
+                        distance += abs(fx-Sety[k])
+                    if(distance<mx):
+                        mx = distance
+                        res = [i, j, h]
+        return Polynomial(res)
+
+    
