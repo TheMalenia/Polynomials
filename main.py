@@ -240,15 +240,15 @@ class Polynomial(object):
         if(len(Setx)!=len(Sety)):
             return 0
         
-        mx = 1e10
+        mx = 1e20
         res = []
-        for i in range(1 , 100):
-            for j in range(0 , 100):
+        for i in range(1 , 20):
+            for j in range(0 , 20):
                 f = Polynomial(i, j)
                 distance = 0
                 for k in range(len(Setx)):
                     fx = f(Setx[k])
-                    distance += abs(fx-Sety[k])
+                    distance += abs(fx-Sety[k])**2
                 if(distance<mx):
                     mx = distance
                     res = [i, j]
@@ -258,19 +258,18 @@ class Polynomial(object):
         if(len(Setx)!=len(Sety)):
             return 0
         
-        mx = 1e10
+        mx = 1e20
         res = []
-        for i in range(1 , 100):
-            for j in range(0 , 100):
-                for h in range(0 , 100):
+        for i in range(1 , 20):
+            for j in range(0 , 20):
+                for h in range(0 , 20):
                     f = Polynomial(i, j, h)
                     distance = 0
                     for k in range(len(Setx)):
                         fx = f(Setx[k])
-                        distance += abs(fx-Sety[k])
+                        distance += abs(fx-Sety[k])**2
                     if(distance<mx):
                         mx = distance
                         res = [i, j, h]
         return Polynomial(res)
 
-    
