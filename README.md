@@ -12,15 +12,15 @@ This script is designed to perform operations on polynomials.
 
 - **Polynomial Representation**: The `Polynomial` class represents a polynomial as a list of coefficients. It supports the creation of polynomials from scalars, lists, or arrays of coefficients.
 
-- **Polynomial Operations**: The class overloads standard Python operators to provide intuitive operations between polynomials. This includes addition (`+`), subtraction (`-`), multiplication (`*`), division (`/`), and exponentiation (`**`).
+- **Polynomial Operations**: The class overloads standard Python operators to provide intuitive operations between polynomials. This includes addition (`+`), subtraction (`-`), multiplication (`*`), division (`/`).
 
 - **Polynomial Evaluation**: The class allows for the evaluation of the polynomial at a given point using the `__call__` method.
+- 
+- **Polynomial Differentiation and Integration**: The `diff` and `inl` methods provide symbolic differentiation and integration of the polynomial, respectively.
 
-- **Polynomial Differentiation**: The `differentiate` method provides symbolic differentiation of the polynomial.
+- **Root Finding**: Using Newton Raphson Method to find one root
 
-- **Root Finding**: The `zeros` method computes the roots of the polynomial using the companion matrix method.
-
-- **Other Features**: The class also provides other features such as pretty printing of polynomials, comparison between polynomials, and more.
+- **Other Features**: The class also provides other features such as pretty printing of polynomials, fitting a polynomial on data, and more.
   
 
 ### Requirements
