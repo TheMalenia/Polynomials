@@ -203,7 +203,7 @@ class Polynomial(object):
         poly.reverse()
         return self.__class__(poly)
 
-    def inl(self, val=1):
+    def inl(self, val=1, c=0):
         # Integral calculator
         res = self.coeffs
         for j in range(val):
@@ -212,7 +212,7 @@ class Polynomial(object):
             for i in range(1 , len(res)):
                 res[i-1] = res[i]/(inl)
                 inl-=1
-            res[-1] = 0
+            res[-1] = c
         return self.__class__(res)
 
     def root(self, val=3):
