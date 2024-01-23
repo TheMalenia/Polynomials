@@ -15,7 +15,7 @@ This script is designed to perform operations on polynomials.
 - **Polynomial Operations**: The class overloads standard Python operators to provide intuitive operations between polynomials. This includes addition (`+`), subtraction (`-`), multiplication (`*`), division (`/`).
 
 - **Polynomial Evaluation**: The class allows for the evaluation of the polynomial at a given point using the `__call__` method.
-- 
+
 - **Polynomial Differentiation and Integration**: The `diff` and `inl` methods provide symbolic differentiation and integration of the polynomial, respectively.
 
 - **Root Finding**: Using Newton Raphson Method to find one root
