@@ -66,6 +66,15 @@ p6 = p1.diff(2) # get derivative for two times -> 2
 # Integral
 p7 = p1.inl(3) # get integral for three times -> 0.016666666666666666X^5 + 0.08333333333333333X^4 + 0.5X^3
 
+# Find one root
+root = p2.root() # -> limit to 0
+
+# Curve Fitting
+x = [1 , 4 , 11]
+y = [2 , 17, 121]
+Polynomial.fit2(x,y) # Return Polynomial([1, 0, 1])
+# fit2 is for parabola sets and fit1 for linier sets.
+
 # Print Polynomial
 print(p1) # Output -> 1X^2 + 2X + 3
 ```
