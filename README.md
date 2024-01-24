@@ -31,6 +31,10 @@ This script is designed to perform operations on polynomials.
 
 To import the script, use the following command:
 
+```bash
+git clone https://github.com/TheMalenia/Polynomials.git
+cd Polynomials
+```
 ```python
 from Polynomial import Polynomial
 ```
