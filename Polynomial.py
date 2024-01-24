@@ -29,6 +29,7 @@ class Polynomial(object):
             val.reverse()
             res = [a+b for a,b in itertools.zip_longest(x, val, fillvalue=0)]
             res.reverse()
+            x.reverse()
         elif isinstance(val, Polynomial):                    # add Polynomial
             x = self.coeffs
             x.reverse()
@@ -36,6 +37,8 @@ class Polynomial(object):
             y.reverse()
             res = [a+b for a,b in itertools.zip_longest(x, y, fillvalue=0)]
             res.reverse()
+            y.reverse()
+            x.reverse()
         else:                                              # add scalar
             if self.coeffs:
                 res = self.coeffs
@@ -74,6 +77,8 @@ class Polynomial(object):
             for j in range(len(_s)):
                 res[i+j] += _s[j]*_v[i]
         res.reverse()
+        _s.reverse()
+        _v.reverse()
         return self.__class__(res)
 
     def __truediv__(self, val):
@@ -81,13 +86,13 @@ class Polynomial(object):
         Poly2 = ( self.__class__(val) ).coeffs
         Poly1.reverse()
         Poly2.reverse()
-
         if len(Poly1) >= len(Poly2):
             #make them same size
             shiftlen = len(Poly1) - len(Poly2)
             Poly2 = [0] * shiftlen + Poly2
         else:
             Poly1.reverse() # we cant divide
+            Poly2.reverse()
             return self.__class__([0]), self.__class__(Poly1)
         
         quot = []
@@ -107,6 +112,8 @@ class Polynomial(object):
         
         quot.reverse()
         Poly1.reverse()
+        Poly2.reverse()
+        self.coeffs.reverse()
         return self.__class__(quot) , self.__class__(Poly1)
 
     def __rtruediv__(self, val):
@@ -122,6 +129,7 @@ class Polynomial(object):
             Poly2 = [0] * shiftlen + Poly2
         else:
             Poly1.reverse()
+            Poly2.reverse()
             return self.__class__([0]), self.__class__(Poly1)
         
         quot = []
@@ -139,6 +147,8 @@ class Polynomial(object):
         
         quot.reverse()
         Poly1.reverse()
+        Poly2.reverse()
+        self.coeffs.reverse()
         return self.__class__(quot) , self.__class__(Poly1)
 
     def __neg__(self):
@@ -182,6 +192,8 @@ class Polynomial(object):
 
     def __sub__(self, val):
         # Return self-val
+        if isinstance(val, Polynomial):
+            return self.__add__([-co for co in val.coeffs])
         return self.__add__([-co for co in val])
 
     def __call__(self, val):
@@ -201,6 +213,7 @@ class Polynomial(object):
             deriv_poly = [poly[i] * i for i in range(1, len(poly))]
             poly = deriv_poly
         poly.reverse()
+        self.coeffs.reverse()
         return self.__class__(poly)
 
     def inl(self, val=1, c=0):
